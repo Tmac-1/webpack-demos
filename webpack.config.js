@@ -1,22 +1,31 @@
 const path = require('path');
-
-const HTMLWebpackPlugin = require('html-webpack-plugin');
+const webpack = require('webpack');
 
 module.exports = {
-  entry: {
-    index:'./src/index.js',
+
+ entry: {
+   polyfills: './src/polyfills.js',
+   index: './src/index.js'
   },
   output: {
     filename: '[name].bundle.js',
-    chunkFilename:'[name].bundle.js',
     path: path.resolve(__dirname, 'dist')
   },
-  plugins:[
-      new HTMLWebpackPlugin({
-        title:"Code Splitting"
-      })
+  module: {
+    rules: [
+      {
+        test: require.resolve('index.js'),
+        use: 'imports-loader?this=>window'
+      },
+      {
+        test: require.resolve('globals.js'),
+        use: 'exports-loader?file,parse=helpers.parse'
+      }
+    ]
+  },
+  plugins: [
+    new webpack.ProvidePlugin({
+      join: ['lodash', 'join']
+    })
   ]
-  
 };
-
-// 抽取公共的 函数

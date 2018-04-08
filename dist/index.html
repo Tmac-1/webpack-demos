@@ -2,8 +2,21 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>Code Splitting</title>
+    <title>Caching</title>
   </head>
   <body>
-  <script type="text/javascript" src="index.bundle.js"></script></body>
+   <script>
+           var modernBrowser = (
+           'fetch' in window &&
+           'assign' in Object
+            );
+   
+        if ( !modernBrowser ) {   
+          scriptElement.async = false;
+          scriptElement.src = '/polyfills.bundle.js';
+          document.head.appendChild(scriptElement);
+        }
+   </script>
+   <script src="index.bundle.js"></script>
+  </body>
 </html>

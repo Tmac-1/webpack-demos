@@ -1,30 +1,22 @@
 
-
-// function getComponent() {
-
-//   return import(/* webpackChunkName: "lodash" */ 'lodash').then(_ => {
-//    var element = document.createElement('div');
-
-//   element.innerHTML = _.join(['Hello', 'webpack'], ' ');
-
-//     return element;
-
-//  }).catch(error => 'An error occurred while loading the component');
-//   }
-
-// getComponent().then(component => {
-//   document.body.appendChild(component);
-// })
+ 
 
 
-
-  async function getComponent() {
+  function component() {
     var element = document.createElement('div');
-    const _ = await import('lodash');
-    element.innerHTML = _.join(['Hello', 'webpack'], ' ');
+
+    element.innerHTML = join(['Hello', 'webpack'], ' ');
+
     return element;
-}
-  
-    getComponent().then(component => {
-      document.body.appendChild(component);
-    });
+  }
+
+  document.body.appendChild(component());
+
+
+ fetch('https://jsonplaceholder.typicode.com/users')
+   .then(response => response.json())
+   .then(json => {
+    console.log('We retrieved some data! AND we\'re confident it will work on a variety of browser distributions.')
+    console.log(json)
+   })
+  .catch(error => console.error('Something went wrong when fetching this data: ', error))
